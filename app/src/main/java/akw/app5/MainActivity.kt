@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
@@ -50,15 +51,39 @@ fun MainNav() {
 
     Scaffold(
         scaffoldState = scaffoldState,
+        topBar = {
+            TopAppBar(
+                title = {},
+                navigationIcon = {
+                    IconButton(onClick = { scaffoldState.drawerState.open() }) {
+                        Icon(
+                            Icons.Filled.Menu
+                        )
+                    }
+                }
+            )
+        },
         drawerContent = { Text("Drawer Content") },
         bottomBar = {
             BottomNavigation {
-                BottomNavigationItem(icon = { Icon(Icons.Filled.Favorite) }, selected = false, onClick = { nav.navigate("Screen1") } )
-                BottomNavigationItem(icon = { Icon(Icons.Filled.Favorite) }, selected = false, onClick = { nav.navigate("Screen2")  } )
-                BottomNavigationItem(icon = { Icon(Icons.Filled.Favorite) }, selected = false, onClick = { nav.navigate("Screen3")  } )
+                BottomNavigationItem(
+                    label = {Text("S1")},
+                    icon = { Icon(Icons.Filled.Favorite) },
+                    selected = false,
+                    onClick = { nav.navigate("Screen1") })
+                BottomNavigationItem(
+                    label = {Text("S2")},
+                    icon = { Icon(Icons.Filled.Favorite) },
+                    selected = false,
+                    onClick = { nav.navigate("Screen2") })
+                BottomNavigationItem(
+                    label = {Text("S3")},
+                    icon = { Icon(Icons.Filled.Favorite) },
+                    selected = false,
+                    onClick = { nav.navigate("Screen3") })
             }
         }
-    ){
+    ) {
         NavHost(navController = nav, startDestination = "Screen1") {
             composable("Screen1") { Screen1(onNav) }
             composable("Screen2") { Screen2(onNav) }
