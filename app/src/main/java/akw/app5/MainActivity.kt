@@ -63,21 +63,25 @@ fun MainNav() {
                 }
             )
         },
-        drawerContent = { Text("Drawer Content") },
+        drawerContent = {
+            TextButton(onClick = { nav.navigate("Screen1"); scaffoldState.drawerState.close() }) { Text("Screen1") }
+            TextButton(onClick = { nav.navigate("Screen2"); scaffoldState.drawerState.close()  }) { Text("Screen2") }
+            TextButton(onClick = { nav.navigate("Screen3"); scaffoldState.drawerState.close()  }) { Text("Screen3") }
+        },
         bottomBar = {
             BottomNavigation {
                 BottomNavigationItem(
-                    label = {Text("S1")},
+                    label = { Text("S1") },
                     icon = { Icon(Icons.Filled.Favorite) },
                     selected = false,
                     onClick = { nav.navigate("Screen1") })
                 BottomNavigationItem(
-                    label = {Text("S2")},
+                    label = { Text("S2") },
                     icon = { Icon(Icons.Filled.Favorite) },
                     selected = false,
                     onClick = { nav.navigate("Screen2") })
                 BottomNavigationItem(
-                    label = {Text("S3")},
+                    label = { Text("S3") },
                     icon = { Icon(Icons.Filled.Favorite) },
                     selected = false,
                     onClick = { nav.navigate("Screen3") })
