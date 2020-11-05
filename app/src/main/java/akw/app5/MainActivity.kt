@@ -5,9 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.setContent
@@ -41,16 +41,29 @@ class MainActivity : AppCompatActivity() {
 @Composable
 fun MainNav() {
 
+    val scaffoldState = rememberScaffoldState()
     val nav: NavHostController = rememberNavController()
 
     val onNav: (route: String) -> Unit = {
         nav.navigate(it)
     }
 
-    NavHost(navController = nav, startDestination = "Screen1") {
-        composable("Screen1") { Screen1(onNav) }
-        composable("Screen2") { Screen2(onNav) }
-        composable("Screen3") { Screen3(onNav) }
+    Scaffold(
+        scaffoldState = scaffoldState,
+        drawerContent = { Text("Drawer Content") },
+        bottomBar = {
+            BottomNavigation {
+                BottomNavigationItem(icon = { Icon(Icons.Filled.Favorite) }, selected = false, onClick = { nav.navigate("Screen1") } )
+                BottomNavigationItem(icon = { Icon(Icons.Filled.Favorite) }, selected = false, onClick = { nav.navigate("Screen2")  } )
+                BottomNavigationItem(icon = { Icon(Icons.Filled.Favorite) }, selected = false, onClick = { nav.navigate("Screen3")  } )
+            }
+        }
+    ){
+        NavHost(navController = nav, startDestination = "Screen1") {
+            composable("Screen1") { Screen1(onNav) }
+            composable("Screen2") { Screen2(onNav) }
+            composable("Screen3") { Screen3(onNav) }
+        }
     }
 }
 
@@ -84,30 +97,6 @@ fun Head(onNav: (screen: String) -> Unit) {
                 text = "Screen3"
             )
         }
-    }
-}
-
-@Composable
-fun Screen1(onNav: (screen: String) -> Unit) {
-    Column {
-        Head(onNav = onNav)
-        Text(text = "Screen1")
-    }
-}
-
-@Composable
-fun Screen2(onNav: (screen: String) -> Unit) {
-    Column {
-        Head(onNav = onNav)
-        Text(text = "Screen3")
-    }
-}
-
-@Composable
-fun Screen3(onNav: (screen: String) -> Unit) {
-    Column {
-        Head(onNav = onNav)
-        Text(text = "Screen2")
     }
 }
 
